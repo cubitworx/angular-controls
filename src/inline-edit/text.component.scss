@@ -1,0 +1,12 @@
+.table {
+	input:not([type=checkbox]):not([type=radio]), select, textarea, sf-control .sf-value {
+		display: inline-block;
+		height: 2.5rem;
+		width: 100%;
+		padding: .3rem 0;
+		margin: 0;
+		border: 1px solid transparent;
+		background-color: transparent;
+		line-height: inherit;
+	}
+}

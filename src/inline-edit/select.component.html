@@ -1,0 +1,8 @@
+<!-- value / readonly -->
+<span class="angular-control-value" (click)="edit()" [hidden]="this._isEditing">{{_displayValue}}</span>
+
+<!-- input -->
+<select #sfInput class="angular-control-input" [hidden]="true">
+	<option *ngIf="!_options.multiple && _itemCount && !!_options.noSelection" value="{{_options.noSelection._key}}">{{_options.noSelection._value}}</option>
+	<option *ngFor="let item of _items | async" value="{{item._key}}">{{item._value}}</option>
+</select>

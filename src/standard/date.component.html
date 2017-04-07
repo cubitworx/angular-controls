@@ -1,0 +1,5 @@
+<!-- readonly -->
+<input type="text" class="angular-control-input form-control" [hidden]="!_readonly" readonly value="{{_displayValue}}" />
+
+<!-- input -->
+<input #sfInput type="text" class="angular-control-input form-control" [ngModel]="_displayValue" [hidden]="_options.readonly" (blur)="onBlur()" />

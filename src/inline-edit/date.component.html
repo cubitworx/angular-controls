@@ -1,0 +1,5 @@
+<!-- value / readonly -->
+<span class="angular-control-value" (click)="edit()" [hidden]="_isEditing">{{_displayValue}}</span>
+
+<!-- input -->
+<input #sfInput type="text" class="angular-control-input" [hidden]="!_isEditing" />

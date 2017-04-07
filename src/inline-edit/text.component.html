@@ -1,0 +1,5 @@
+<!-- value -->
+<span class="angular-control-value" (click)="edit()" [hidden]="_isEditing">{{value}}</span>
+
+<!-- input -->
+<input #sfInput type="text" class="angular-control-input" [(ngModel)]="value" [hidden]="!_isEditing" (blur)="onBlur()" />
