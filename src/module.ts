@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { I18nModule } from 'angular-i18n';
 
 // Local components
@@ -27,9 +27,17 @@ import { IeTextComponent } from './inline-edit/text.component';
 		SelectComponent
 	],
 	imports: [
-		BrowserModule,
+		CommonModule,
 		FormsModule,
 		I18nModule
 	]
 })
-export class AngularControlsModule { }
+export class AngularControlsModule {
+
+	public static forRoot(): ModuleWithProviders {
+		return {
+			ngModule: AngularControlsModule
+		};
+	}
+
+}

@@ -1,5 +1,5 @@
-import { Component, ElementRef, forwardRef, Input, NgZone, OnChanges, Renderer, SimpleChanges, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 // Local
@@ -8,7 +8,13 @@ import { ValuelistInterface } from '../common';
 // Local
 import { SelectControl, SelectControlOptions } from '../base/select-control';
 
-const SF_CONTROL_VALUE_ACCESSOR = {
+const CONTROL_VALIDATORS = {
+	provide: NG_VALIDATORS,
+	useExisting: forwardRef(() => IeSelectComponent),
+	multi: true
+};
+
+const CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => IeSelectComponent),
 	multi: true
@@ -19,31 +25,15 @@ const SF_CONTROL_VALUE_ACCESSOR = {
 	host: {
 		'class': 'angular-control'
 	},
-	providers: [SF_CONTROL_VALUE_ACCESSOR],
+	providers: [
+		CONTROL_VALIDATORS,
+		CONTROL_VALUE_ACCESSOR
+	],
 	templateUrl: './select.component.html'
 })
 export class IeSelectComponent extends SelectControl implements ControlValueAccessor, OnChanges {
 
-	@Input() public multiple: boolean;
-	@Input() public options: SelectControlOptions = {};
-	@Input() public readonly: boolean;
-
-	@ViewChild('sfInput') public sfInput: ElementRef;
-
 	private _isEditing: boolean = false;
-
-	constructor(
-		ngZone: NgZone,
-		renderer: Renderer
-	) {
-		// Hack until component inheritance is less buggy
-		super(ngZone, renderer);
-	}
-
-	@Input()
-	public set items(items: Observable<ValuelistInterface[]>) {
-		this._setItems(items);
-	}
 
 	public cancel(): void {
 		this._isEditing = false;
@@ -61,16 +51,12 @@ export class IeSelectComponent extends SelectControl implements ControlValueAcce
 			this._selectpicker.selectpicker('toggle');
 	}
 
-	public ngOnChanges(changes: SimpleChanges): void {
-		Object.assign(this._options, this.options, {
-			multiple: this.multiple,
-			readonly: this.readonly
-		});
-
-		// Hack until component inheritance is less buggy
+	public ngOnInit(): void {
 		if( !this._sfInput )
 			this._sfInput = this.sfInput;
+	}
 
+	public ngOnChanges(changes: SimpleChanges): void {
 		super.ngOnChanges( changes );
 
 		if( this._options.readonly )

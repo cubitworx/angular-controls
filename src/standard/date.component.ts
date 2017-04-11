@@ -1,11 +1,17 @@
 import { Component, ElementRef, forwardRef, Input, NgZone, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { I18nService } from 'angular-i18n';
 
 // local
 import { DateControl, DateControlOptions } from '../base/date-control';
 
-const SF_CONTROL_VALUE_ACCESSOR = {
+const CONTROL_VALIDATORS = {
+	provide: NG_VALIDATORS,
+	useExisting: forwardRef(() => DateComponent),
+	multi: true
+};
+
+const CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => DateComponent),
 	multi: true
@@ -16,7 +22,10 @@ const SF_CONTROL_VALUE_ACCESSOR = {
 	host: {
 		'class': 'angular-control'
 	},
-	providers: [SF_CONTROL_VALUE_ACCESSOR],
+	providers: [
+		CONTROL_VALIDATORS,
+		CONTROL_VALUE_ACCESSOR
+	],
 	templateUrl: './date.component.html'
 })
 export class DateComponent extends DateControl implements ControlValueAccessor, OnChanges {

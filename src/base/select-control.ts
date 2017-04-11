@@ -1,4 +1,4 @@
-import { ElementRef, NgZone, OnChanges, OnDestroy, Renderer, SimpleChanges } from '@angular/core';
+import { ElementRef, Input, NgZone, OnChanges, OnDestroy, Renderer, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { IsBlank } from 'js-utility';
@@ -28,6 +28,12 @@ const OPTION_DEFAULTS: SelectControlOptions = {
 **/
 export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy {
 
+	@Input() public multiple: boolean;
+	@Input() public options: SelectControlOptions = {};
+	@Input() public readonly: boolean;
+
+	@ViewChild('sfInput') public sfInput: ElementRef;
+
 	public onChange: Function;
 	public onTouched: Function;
 
@@ -47,7 +53,17 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 		protected _renderer: Renderer
 	) { }
 
+	@Input()
+	public set items(items: Observable<ValuelistInterface[]>) {
+		this._setItems(items);
+	}
+
 	public ngOnChanges(changes: SimpleChanges): void {
+		Object.assign(this._options, this.options, {
+			multiple: this.multiple,
+			readonly: this.readonly
+		});
+
 		for( let change in changes ) {
 			switch(change) {
 				case 'multiple':
@@ -181,9 +197,8 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 			this._subscriptions.items.unsubscribe();
 
 		this._subscriptions.items = this._items.subscribe( (items: ValuelistInterface[]) => {
-			if(0) console.log(items);
 			this._itemCount = items.length;
-			// this._createSelectpicker();
+			this._createSelectpicker();
 			this._refreshDisplayValue();
 		});
 	}
