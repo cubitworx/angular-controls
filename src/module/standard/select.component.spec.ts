@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 // Local
-import { AppComponent } from '../app/app.component';
+import { AppComponent } from '../../demo/app/app.component';
 import { ValuelistInterface } from '../common';
 import { SelectComponent } from './select.component';
 

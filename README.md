@@ -15,4 +15,3 @@ Enhanced form controls for Angular
 ## License
 
 MIT
-

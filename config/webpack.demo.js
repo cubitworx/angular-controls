@@ -13,6 +13,20 @@ module.exports = webpackMerge(commonConfig, {
     chunkFilename: '[id].chunk.js'
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: [
+          {
+            loader: 'awesome-typescript-loader',
+            options: { configFileName: helpers.root('tsconfig-demo.json') }
+          }, 'angular2-template-loader'
+        ]
+      }
+		]
+	},
+
   devServer: {
     historyApiFallback: true,
     stats: 'minimal'

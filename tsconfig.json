@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+		"declaration": true,
+    "lib": [ "es2015", "dom" ],
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+		"typeRoots": [
+			"node_modules/@types"
+		],
+		"rootDir": "src",
+		"outDir": "dist"
+  },
+	"include": [
+		"src/*"
+	],
+	"exclude": [
+		"node_modules/*",
+		"src/demo/*"
+	]
+}

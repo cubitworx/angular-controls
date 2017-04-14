@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 // Local
-import { ValuelistInterface } from '../common';
+import { ValuelistInterface } from '../../module/common';
 
 @Component({
 	selector: 'app',
@@ -16,9 +16,9 @@ export class AppComponent {
 	private _formGroup: FormGroup;
 
 	constructor(
-		private _formBuilder: FormBuilder
+		formBuilder: FormBuilder
 	) {
-		this._formGroup = this._formBuilder.group({
+		this._formGroup = formBuilder.group({
 			select: [ '4' ]
 		});
 	}

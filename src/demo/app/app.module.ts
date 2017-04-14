@@ -4,7 +4,7 @@ import { BrowserModule }  from '@angular/platform-browser';
 
 // Local
 import { AppComponent } from './app.component';
-import { AngularControlsModule } from '../module';
+import { AngularControlsModule } from '../../module';
 
 @NgModule({
 	bootstrap: [ AppComponent ],

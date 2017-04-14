@@ -16,9 +16,9 @@ const METADATA = {
 module.exports = {
 
   entry: {
-    'app': './src/main.ts',
+    'app': './src/demo/main.ts',
     'module': './src/module.ts',
-    'polyfills': './src/polyfills.ts'
+    'polyfills': './src/demo/polyfills.ts'
   },
 
   resolve: {
@@ -27,15 +27,6 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.ts$/,
-        loaders: [
-          {
-            loader: 'awesome-typescript-loader',
-            options: { configFileName: helpers.root('src', 'tsconfig.json') }
-          } , 'angular2-template-loader'
-        ]
-      },
       {
         test: /\.html$/,
         use: 'html-loader',
@@ -171,10 +162,10 @@ module.exports = {
 		}),
 
 		new HtmlWebpackPlugin({
-			template: './src/index.html',
+			template: './src/demo/index.html',
 			chunksSortMode: 'dependency',
 			metadata: METADATA,
-			inject: 'head'
+			inject: 'body'
 		})
 
   ]
