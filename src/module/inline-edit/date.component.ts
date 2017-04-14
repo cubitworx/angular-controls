@@ -30,12 +30,6 @@ const CONTROL_VALUE_ACCESSOR = {
 })
 export class IeDateComponent extends DateControl implements ControlValueAccessor, OnChanges {
 
-	@Input() public format: string;
-	@Input() public options: DateControlOptions = {};
-	@Input() public readonly: boolean;
-
-	@ViewChild('sfInput') public sfInput: ElementRef;
-
 	private _isEditing: boolean = false;
 
 	constructor(
@@ -61,19 +55,6 @@ export class IeDateComponent extends DateControl implements ControlValueAccessor
 			// Automatically focus input
 			this._renderer.invokeElementMethod( this.sfInput.nativeElement, 'focus', [] );
 		});
-	}
-
-	public ngOnChanges(changes: SimpleChanges): void {
-		Object.assign(this._options, this.options, {
-			format: this.format,
-			readonly: this.readonly
-		});
-
-		// Hack until component inheritance is less buggy
-		if( !this._sfInput )
-			this._sfInput = this.sfInput;
-
-		super.ngOnChanges( changes );
 	}
 
 	public save(): void {

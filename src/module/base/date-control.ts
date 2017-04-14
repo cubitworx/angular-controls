@@ -1,4 +1,4 @@
-import { ElementRef, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { I18nService } from 'angular-i18n';
 import * as $ from 'jquery';
@@ -14,7 +14,16 @@ const OPTION_DEFAULTS: DateControlOptions = {
 	readonly: false
 };
 
+@Component({
+	selector: 'abstract-date-control'
+})
 export class DateControl implements ControlValueAccessor, OnDestroy, OnChanges {
+
+	@Input() public format: string;
+	@Input() public options: DateControlOptions = {};
+	@Input() public readonly: boolean;
+
+	@ViewChild('sfInput') public sfInput: ElementRef;
 
 	public onChange: Function;
 	public onTouched: Function;
@@ -22,7 +31,6 @@ export class DateControl implements ControlValueAccessor, OnDestroy, OnChanges {
 	protected _datetimepicker: any;
 	protected _displayValue: string = '';
 	protected _options: DateControlOptions = Object.assign({}, OPTION_DEFAULTS);
-	protected _sfInput: ElementRef;
 	protected _value: Date;
 
 	constructor(
@@ -31,6 +39,11 @@ export class DateControl implements ControlValueAccessor, OnDestroy, OnChanges {
 	) { }
 
 	public ngOnChanges(changes: SimpleChanges): void {
+		Object.assign(this._options, this.options, {
+			format: this.format,
+			readonly: this.readonly
+		});
+
 		for( let change in changes ) {
 			switch(change) {
 				case 'readonly':
@@ -79,7 +92,7 @@ export class DateControl implements ControlValueAccessor, OnDestroy, OnChanges {
 
 	protected _createDatepicker(): void {
 		if( !this._datetimepicker ) {
-			this._datetimepicker = $(this._sfInput.nativeElement).datetimepicker({
+			this._datetimepicker = $(this.sfInput.nativeElement).datetimepicker({
 				defaultDate: this._value ? moment( this._value ) : '',
 				format: this._i18nService.format(this._options.format),
 				locale: this._i18nService.locale,

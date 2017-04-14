@@ -51,11 +51,6 @@ export class IeSelectComponent extends SelectControl implements ControlValueAcce
 			this._selectpicker.selectpicker('toggle');
 	}
 
-	public ngOnInit(): void {
-		if( !this._sfInput )
-			this._sfInput = this.sfInput;
-	}
-
 	public ngOnChanges(changes: SimpleChanges): void {
 		super.ngOnChanges( changes );
 

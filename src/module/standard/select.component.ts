@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, NgZone, OnChanges, OnInit, Renderer, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, NgZone, OnChanges, Renderer, SimpleChanges, ViewChild } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -31,30 +31,7 @@ const CONTROL_VALUE_ACCESSOR = {
 	],
 	templateUrl: './select.component.html'
 })
-export class SelectComponent extends SelectControl implements ControlValueAccessor, OnChanges, OnInit {
-
-	@Input() public multiple: boolean;
-	@Input() public options: SelectControlOptions = {};
-	@Input() public readonly: boolean;
-
-	@ViewChild('sfInput') public sfInput: ElementRef;
-
-	constructor(
-		ngZone: NgZone,
-		renderer: Renderer
-	) {
-		super(ngZone, renderer);
-	}
-
-	@Input()
-	public set items(items: Observable<ValuelistInterface[]>) {
-		this._setItems(items);
-	}
-
-	public ngOnInit(): void {
-		if( !this._sfInput )
-			this._sfInput = this.sfInput;
-	}
+export class SelectComponent extends SelectControl implements ControlValueAccessor, OnChanges {
 
 	public ngOnChanges(changes: SimpleChanges): void {
 		super.ngOnChanges( changes );

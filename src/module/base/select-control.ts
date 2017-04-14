@@ -1,4 +1,4 @@
-import { ElementRef, Input, NgZone, OnChanges, OnDestroy, Renderer, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, Renderer, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { IsBlank } from 'js-utility';
@@ -22,10 +22,9 @@ const OPTION_DEFAULTS: SelectControlOptions = {
 	separator: ', '
 };
 
-/**
- * Hack implementation until component inheritance is less buggy
- *
-**/
+@Component({
+	selector: 'abstract-select-control'
+})
 export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy {
 
 	@Input() public multiple: boolean;
@@ -45,7 +44,6 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 	protected _subscriptions: {
 		items?: Subscription
 	} = {};
-	protected _sfInput: ElementRef;
 	protected _value: string|string[];
 
 	constructor(
@@ -78,9 +76,9 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 		}
 
 		if( this._options.multiple )
-			this._renderer.setElementProperty(this._sfInput.nativeElement, 'multiple', true);
+			this._renderer.setElementProperty(this.sfInput.nativeElement, 'multiple', true);
 		else
-			this._renderer.setElementProperty(this._sfInput.nativeElement, 'multiple', false);
+			this._renderer.setElementProperty(this.sfInput.nativeElement, 'multiple', false);
 	}
 
 	public ngOnDestroy(): void {
@@ -129,7 +127,7 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 
 	protected _createSelectpicker(refresh: boolean = true): void {
 		if( !this._selectpicker ) {
-			this._selectpicker = $(this._sfInput.nativeElement);
+			this._selectpicker = $(this.sfInput.nativeElement);
 			this._selectpicker.selectpicker({
 				noneSelectedText: ''
 			});

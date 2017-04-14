@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
 
 // Local
@@ -14,7 +14,8 @@ import { AngularControlsModule } from '../../module';
 	imports: [
 		AngularControlsModule,
 		BrowserModule,
-		// FormsModule
+		FormsModule,
+		ReactiveFormsModule
 	]
 })
 export class AppModule { }
