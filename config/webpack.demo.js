@@ -6,9 +6,16 @@ module.exports = webpackMerge(commonConfig, {
 
   devtool: 'cheap-module-eval-source-map',
 
+  entry: {
+    'app': './src/demo/main.ts',
+    'module': './src/module.ts',
+    'polyfills': './src/demo/polyfills.ts',
+    'vendor': './src/demo/vendor.ts'
+  },
+
   output: {
-    path: helpers.root('dist'),
-    publicPath: 'http://localhost:8080/',
+    path: helpers.root('demo'),
+    publicPath: '/',
     filename: '[name].bundle.js',
     chunkFilename: '[id].chunk.js'
   },
@@ -17,19 +24,25 @@ module.exports = webpackMerge(commonConfig, {
     rules: [
       {
         test: /\.ts$/,
-        use: [
-          {
-            loader: 'awesome-typescript-loader',
-            options: { configFileName: helpers.root('tsconfig-demo.json') }
-          }, 'angular2-template-loader'
-        ]
+        use: [ 'awesome-typescript-loader', 'angular2-template-loader' ]
       }
 		]
 	},
 
+  plugins: [
+
+		new HtmlWebpackPlugin({
+			template: '!!html-loader!src/demo/index.html',
+			chunksSortMode: 'dependency',
+			metadata: METADATA,
+			inject: 'body'
+		})
+
+	],
+
   devServer: {
     historyApiFallback: true,
     stats: 'minimal'
-  }
+  },
 
 });

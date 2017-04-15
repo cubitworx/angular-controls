@@ -3,16 +3,21 @@
   "version": "0.0.1",
   "license": "MIT",
   "description": "Enhanced form controls for Angular",
-  "main": "./dist",
-  "types": "./dist",
+  "main": "./dist/umd/module.js",
+  "module": "./dist/es5",
+  "es2015": "./dist/es6",
+  "types": "./dist/es6",
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && npm run build:es5 && npm run build:es6 && npm run build:bundles",
+		"build:es5": "rimraf dist/es5 && tsc -p tsconfig-dist.json --outDir dist/es5",
+		"build:es6": "rimraf dist/es6 && tsc -p tsconfig-dist.json --outDir dist/es6 -m es6",
+		"build:umd": "rimraf dist/umd && webpack --config ./config/webpack.umd.js --display-error-details",
     "commit": "git-cz",
     "htmlhint": "htmlhint ./src/**/*.html -c ./.htmlhintrc",
     "lint": "npm run tslint && npm run htmlhint",
     "prerelease": "npm run lint && npm run build && npm run test",
-    "start": "webpack-dev-server --inline --progress --port 8080",
-    "test": "karma start karma.webpack.conf.js",
+    "start": "rimraf demo && webpack-dev-server --inline --progress --port 8080",
+    "test": "karma start",
     "tslint": "tslint ./src/**/*.ts -t verbose"
   },
   "author": "Charles Louw <charles.louw@gmail.com>",
@@ -28,7 +33,10 @@
     "@angular/platform-browser": "^4.0.2",
     "@angular/platform-browser-dynamic": "^4.0.2",
     "angular-i18n": "file:D:/www/npm/angular-i18n",
+    "bootstrap-sass": "^3.3.7",
+    "bootstrap-select": "^1.12.2",
     "core-js": "^2.4.1",
+    "eonasdan-bootstrap-datetimepicker": "git://github.com/Eonasdan/bootstrap-datetimepicker.git#master",
     "jquery": "^3.1.0",
     "js-utility": "file:D:/www/npm/js-utility",
     "lodash": "^4.17.4",
@@ -36,6 +44,7 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
+    "@types/eonasdan-bootstrap-datetimepicker": "^4.17.22",
     "@types/jasmine": "^2.5.36",
     "@types/jquery": "^2.0.39",
     "@types/lodash": "^4.14.62",
@@ -47,8 +56,10 @@
     "css-loader": "^0.28.0",
     "cz-conventional-changelog": "^2.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "^2.16.1",
+    "img-loader": "^2.0.0",
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
     "karma": "^1.4.1",
@@ -74,5 +85,8 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies-tmp": {
+    "eonasdan-bootstrap-datetimepicker": "Upgrade to v5 once it is released. Due to issue 1776 - https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1776"
   }
 }

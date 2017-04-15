@@ -1,2 +1,7 @@
-dist/*.spec.js
-dist/*.spec.js.map
+.*
+config/
+demo/
+**/*.spec.js
+**/*.spec.js.map
+**/tsconfig*.json
+**/webpack*.js

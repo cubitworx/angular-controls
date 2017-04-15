@@ -14,13 +14,6 @@
 			"node_modules/@types"
 		],
 		"rootDir": "src",
-		"outDir": "dist"
-  },
-	"include": [
-		"src/*"
-	],
-	"exclude": [
-		"node_modules/*",
-		"src/demo/*"
-	]
+		"outDir": "demo"
+  }
 }
