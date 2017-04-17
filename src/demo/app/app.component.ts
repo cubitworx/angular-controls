@@ -19,6 +19,7 @@ export class AppComponent {
 		formBuilder: FormBuilder
 	) {
 		this._formGroup = formBuilder.group({
+			date: '12/5/2017',
 			select: [ '4' ]
 		});
 	}

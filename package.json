@@ -16,7 +16,7 @@
     "htmlhint": "htmlhint ./src/**/*.html -c ./.htmlhintrc",
     "lint": "npm run tslint && npm run htmlhint",
     "prerelease": "npm run lint && npm run build && npm run test",
-    "start": "rimraf demo && webpack-dev-server --inline --progress --port 8080",
+    "start": "webpack-dev-server --inline --progress --port 8080",
     "test": "karma start",
     "tslint": "tslint ./src/**/*.ts -t verbose"
   },

@@ -1,8 +1,27 @@
 <main>
 
-  <h1>Select control</h1>
+  <h1>Angular controls</h1>
 	<form [formGroup]="_formGroup">
-		<angular-control type="select" formControlName="select" [items]="_valuelistItems"></angular-control>
+		<table>
+			<tr>
+				<th>Type</th>
+				<th>Control</th>
+				<th>Input</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td><label for="selectControl">Standard select</label></td>
+				<td><angular-control id="selectControl" type="select" formControlName="select" [items]="_valuelistItems"></angular-control></td>
+				<td><input class="form-control" type="text" formControlName="select" /></td>
+				<td>{{_formGroup.controls['select'].value}}</td>
+			</tr>
+			<tr>
+				<td><label for="dateControl">Standard date</label></td>
+				<td><angular-control id="dateControl" type="date" formControlName="date"></angular-control></td>
+				<td><input class="form-control" type="text" formControlName="date" /></td>
+				<td>{{_formGroup.controls['date'].value}}</td>
+			</tr>
+		</table>
 	</form>
 
 </main>

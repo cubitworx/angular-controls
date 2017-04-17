@@ -1,0 +1,5 @@
+// Needed in bootstrap v3 because user-agent hidden attribute is not aggressive enough
+// TODO Can be removed when bootstrap v4 is used
+[hidden], template {
+	display: none !important;
+}

@@ -5,3 +5,11 @@ main {
   margin-top: 50px;
   display: block;
 }
+
+table {
+	th, td {
+		padding: 5px;
+		width: 20rem;
+		text-align: left;
+	}
+}

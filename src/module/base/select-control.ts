@@ -57,7 +57,7 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 	}
 
 	public ngOnChanges(changes: SimpleChanges): void {
-		Object.assign(this._options, this.options, {
+		_.defaults(this._options, this.options, {
 			multiple: this.multiple,
 			readonly: this.readonly
 		});

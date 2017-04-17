@@ -26,8 +26,7 @@ module.exports = webpackMerge(
 
 		entry: {
 			'polyfills': './src/demo/polyfills.ts',
-			'vendor': './src/demo/vendor.ts',
-			'module': './src/module.ts',
+			'vendor.scss': './src/demo/vendor.scss.ts',
 			'app': './src/demo/main.ts'
 		},
 
@@ -66,7 +65,7 @@ module.exports = webpackMerge(
 			// Implicit common vendor chunk enables tree shaking of the vendor modules
 			new webpack.optimize.CommonsChunkPlugin({
 				name: 'vendor',
-				chunks: ['app', 'module', 'vendor'],
+				chunks: ['app'],
 				minChunks: module => /node_modules/.test(module.resource)
 			}),
 

@@ -2,7 +2,8 @@ var webpack = require('webpack');
 var helpers = require('./helpers');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const extractVendorStyles = new ExtractTextPlugin('[name].bundle.css');
+const extractAppStyles = new ExtractTextPlugin('app.bundle.css');
+const extractVendorStyles = new ExtractTextPlugin('vendor.bundle.css');
 
 module.exports = {
 
@@ -118,53 +119,101 @@ module.exports = {
 
 	},
 
+	stylesExtracted_old: {
+
+		module: {
+			rules: [
+				{
+					test: /\.scss$/,
+					use: ['to-string-loader', 'css-loader', 'sass-loader'],
+					include: /\.component\.scss$/,
+					exclude: helpers.root('node_modules')
+				},
+				{
+					test: /\.scss$/,
+					// use: [ 'style-loader', 'css-loader', 'sass-loader' ],
+					use: ExtractTextPlugin.extract({
+						fallback: 'style-loader',
+						use: 'css-loader!sass-loader'
+					}),
+					exclude: /\.component\.scss$/
+				}
+			]
+		},
+
+		plugins: [
+			new ExtractTextPlugin('[name].bundle.[chunkhash].css')
+		]
+
+	},
+
 	stylesExtracted: {
 
 		module: {
 			rules: [
+
+				// App components
 				{
 					test: /\.css$/,
 					use: ['to-string-loader', 'css-loader'],
 					include: /\.component\.css$/
 				},
 				{
-					test: /\.css$/,
-					use: ['css-loader'],
-					exclude: [ /node_modules/, /\.component\.css$/ ]
+					test: /\.scss$/,
+					use: ['to-string-loader', 'css-loader', 'sass-loader'],
+					include: /\.component\.scss$/
 				},
+
+				// App non-components
+				{
+					test: /\.css$/,
+					// use: 'css-loader',
+					use: extractAppStyles.extract({
+						fallback: 'style-loader',
+						use: 'css-loader'
+					}),
+					include: helpers.root('src'),
+					exclude: /\.component\.css$/
+				},
+				{
+					test: /\.scss$/,
+					use: [ 'css-loader', 'sass-loader' ],
+					use: extractAppStyles.extract({
+						fallback: 'style-loader',
+						use: [ 'css-loader', 'sass-loader' ]
+					}),
+					include: helpers.root('src'),
+					exclude: [
+						/\.component\.scss$/,
+						/vendor\.scss$/
+					]
+				},
+
+				// Vendor
 				{
 					test: /\.css$/,
 					use: extractVendorStyles.extract({
 						fallback: 'style-loader',
 						use: 'css-loader'
 					}),
-					include: /node_modules/
+					include: /vendor\.css$/
 				},
 				{
 					test: /\.scss$/,
-					use: ['to-string-loader', 'css-loader', 'sass-loader'],
-					include: /\.component\.scss$/
-				},
-				{
-					test: /\.scss$/,
-					use: ['css-loader', 'sass-loader'],
-					exclude: [ /node_modules/, /\.component\.scss$/ ]
-				},
-				{
-					test: /\.scss$/,
+					// use: 'null-loader',
 					use: extractVendorStyles.extract({
 						fallback: 'style-loader',
 						use: [ 'css-loader', 'sass-loader' ]
 					}),
-					include: /node_modules/
+					include: /vendor\.scss$/
 				}
+
 			]
 		},
 
 		plugins: [
-
+			extractAppStyles,
 			extractVendorStyles
-
 		]
 
 	}
