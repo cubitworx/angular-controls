@@ -2,11 +2,11 @@ import { Component, ElementRef, forwardRef, Input, Renderer, ViewChild } from '@
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { IsBlank } from 'js-utility';
 
-const CONTROL_VALIDATORS = {
+/*const CONTROL_VALIDATORS = {
 	provide: NG_VALIDATORS,
 	useExisting: forwardRef(() => IeTextComponent),
 	multi: true
-};
+};*/
 
 const CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -20,7 +20,7 @@ const CONTROL_VALUE_ACCESSOR = {
 		'class': 'angular-control'
 	},
 	providers: [
-		CONTROL_VALIDATORS,
+		// CONTROL_VALIDATORS,
 		CONTROL_VALUE_ACCESSOR
 	],
 	templateUrl: './text.component.html',

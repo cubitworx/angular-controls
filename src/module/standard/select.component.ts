@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, NgZone, OnChanges, Renderer, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, NgZone, Renderer, SimpleChanges, ViewChild } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -7,12 +7,12 @@ import { ValuelistInterface } from '../common';
 
 // Local
 import { SelectControl, SelectControlOptions } from '../base/select-control';
-
+/*
 const CONTROL_VALIDATORS = {
 	provide: NG_VALIDATORS,
 	useExisting: forwardRef(() => SelectComponent),
 	multi: true
-};
+};*/
 
 const CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -26,29 +26,20 @@ const CONTROL_VALUE_ACCESSOR = {
 		'class': 'angular-control'
 	},
 	providers: [
-		CONTROL_VALIDATORS,
+		// CONTROL_VALIDATORS,
 		CONTROL_VALUE_ACCESSOR
 	],
 	templateUrl: './select.component.html'
 })
-export class SelectComponent extends SelectControl implements ControlValueAccessor, OnChanges {
+export class SelectComponent extends SelectControl implements ControlValueAccessor {
 
-	public ngOnChanges(changes: SimpleChanges): void {
-		super.ngOnChanges( changes );
-
+	protected _refresh(): void {
 		if( this._options.readonly )
 			this._destroySelectpicker();
 		else
 			this._createSelectpicker();
-	}
 
-	protected _refreshDisplayValue(): void {
-		if( this._options.readonly ) {
-			this._displayValue = '';
-			return;
-		}
-
-		super._refreshDisplayValue();
+		this._refreshDisplayValue();
 	}
 
 }

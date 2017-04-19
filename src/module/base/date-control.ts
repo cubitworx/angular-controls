@@ -1,7 +1,8 @@
-import { Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, OnInit, Renderer, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { I18nService } from 'angular-i18n';
 import * as $ from 'jquery';
+import * as _ from 'lodash';
 import * as moment from 'moment';
 
 export interface DateControlOptions {
@@ -17,7 +18,7 @@ const OPTION_DEFAULTS: DateControlOptions = {
 @Component({
 	selector: 'abstract-date-control'
 })
-export class DateControl implements ControlValueAccessor, OnDestroy, OnChanges {
+export class DateControl implements ControlValueAccessor, OnChanges, OnDestroy, OnInit {
 
 	@Input() public format: string;
 	@Input() public options: DateControlOptions = {};
@@ -35,11 +36,12 @@ export class DateControl implements ControlValueAccessor, OnDestroy, OnChanges {
 
 	constructor(
 		protected _i18nService: I18nService,
-		protected _ngZone: NgZone
+		protected _ngZone: NgZone,
+		protected _renderer: Renderer
 	) { }
 
 	public ngOnChanges(changes: SimpleChanges): void {
-		Object.assign(this._options, this.options, {
+		_.defaults(this._options, this.options, {
 			format: this.format,
 			readonly: this.readonly
 		});
@@ -51,10 +53,21 @@ export class DateControl implements ControlValueAccessor, OnDestroy, OnChanges {
 					break;
 			}
 		}
+
+		if( this._options.readonly )
+			this._renderer.setElementProperty(this.sfInput.nativeElement, 'readonly', true);
+		else
+			this._renderer.setElementProperty(this.sfInput.nativeElement, 'readonly', false);
+
+		this._refresh();
 	}
 
 	public ngOnDestroy() {
 		this._destroyDatepicker();
+	}
+
+	public ngOnInit(): void {
+		this._refresh();
 	}
 
 	public onBlur() {
@@ -90,20 +103,27 @@ export class DateControl implements ControlValueAccessor, OnDestroy, OnChanges {
 		this._displayValue = this._i18nService.valueToDateString(this._value, this._options.format);
 	}
 
-	protected _createDatepicker(): void {
+	protected _createDatepicker(): boolean {
+		if( this._options.readonly )
+			return false;
+
 		if( !this._datetimepicker ) {
-			this._datetimepicker = $(this.sfInput.nativeElement).datetimepicker({
+			this._datetimepicker = $(this.sfInput.nativeElement);
+			this._datetimepicker.datetimepicker({
 				defaultDate: this._value ? moment( this._value ) : '',
 				format: this._i18nService.format(this._options.format),
 				locale: this._i18nService.locale,
 				sideBySide: true
 			});
 			this._datetimepicker.on('dp.update', () => {
+				if(1) console.log('dp.update');
 				this._ngZone.run( () => {
 					this.save();
 				});
 			});
 		}
+
+		return true;
 	}
 
 	protected _destroyDatepicker(): void {
@@ -112,5 +132,7 @@ export class DateControl implements ControlValueAccessor, OnDestroy, OnChanges {
 			this._datetimepicker = undefined;
 		}
 	}
+
+	protected _refresh(): void { }
 
 }

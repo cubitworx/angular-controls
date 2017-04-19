@@ -11,8 +11,6 @@ import { IeDateComponent } from './module/inline-edit/date.component';
 import { IeSelectComponent } from './module/inline-edit/select.component';
 import { IeTextComponent } from './module/inline-edit/text.component';
 
-import './module.scss';
-
 @NgModule({
 	declarations: [
 		DateComponent,

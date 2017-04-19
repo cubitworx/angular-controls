@@ -1,9 +1,9 @@
-import { Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, Renderer, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, OnInit, Renderer, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { IsBlank } from 'js-utility';
-import * as $ from 'jquery';
 import * as _ from 'lodash';
+import * as $ from 'jquery';
 
 // Local
 import { ValuelistInterface } from '../common';
@@ -25,7 +25,7 @@ const OPTION_DEFAULTS: SelectControlOptions = {
 @Component({
 	selector: 'abstract-select-control'
 })
-export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy {
+export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy, OnInit {
 
 	@Input() public multiple: boolean;
 	@Input() public options: SelectControlOptions = {};
@@ -79,6 +79,13 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 			this._renderer.setElementProperty(this.sfInput.nativeElement, 'multiple', true);
 		else
 			this._renderer.setElementProperty(this.sfInput.nativeElement, 'multiple', false);
+
+		if( this._options.readonly )
+			this._renderer.setElementProperty(this.sfInput.nativeElement, 'readonly', true);
+		else
+			this._renderer.setElementProperty(this.sfInput.nativeElement, 'readonly', false);
+
+		this._refresh();
 	}
 
 	public ngOnDestroy(): void {
@@ -89,6 +96,10 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 		}
 
 		this._destroySelectpicker();
+	}
+
+	public ngOnInit(): void {
+		this._refresh();
 	}
 
 	public registerOnChange(fn: (value: string|string[]) => void): void {
@@ -120,14 +131,15 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 		value = IsBlank(value) ? '' : value;
 		if( value !== this._value ) {
 			this._value = value;
-			this._refreshSelectpicker();
-			this._refreshDisplayValue();
+			this._refresh();
 		}
 	}
 
-	protected _createSelectpicker(refresh: boolean = true): void {
+	protected _createSelectpicker(refresh: boolean = true): boolean {
+		if(1) console.log(this._selectpicker);
 		if( !this._selectpicker ) {
 			this._selectpicker = $(this.sfInput.nativeElement);
+			if(1) console.log(this._selectpicker);
 			this._selectpicker.selectpicker({
 				noneSelectedText: ''
 			});
@@ -141,6 +153,8 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 		} else if( refresh ) {
 			this._refreshSelectpicker();
 		}
+
+		return true;
 	}
 
 	protected _destroySelectpicker(): void {
@@ -148,6 +162,11 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 			this._selectpicker.selectpicker('destroy');
 			this._selectpicker = undefined;
 		}
+	}
+
+	protected _refresh(): void {
+		this._refreshSelectpicker();
+		this._refreshDisplayValue();
 	}
 
 	protected _refreshSelectpicker(): void {
@@ -196,8 +215,7 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 
 		this._subscriptions.items = this._items.subscribe( (items: ValuelistInterface[]) => {
 			this._itemCount = items.length;
-			this._createSelectpicker();
-			this._refreshDisplayValue();
+			this._refresh();
 		});
 	}
 

@@ -8,11 +8,11 @@ import { ValuelistInterface } from '../common';
 // Local
 import { SelectControl, SelectControlOptions } from '../base/select-control';
 
-const CONTROL_VALIDATORS = {
+/*const CONTROL_VALIDATORS = {
 	provide: NG_VALIDATORS,
 	useExisting: forwardRef(() => IeSelectComponent),
 	multi: true
-};
+};*/
 
 const CONTROL_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -26,9 +26,10 @@ const CONTROL_VALUE_ACCESSOR = {
 		'class': 'angular-control'
 	},
 	providers: [
-		CONTROL_VALIDATORS,
+		// CONTROL_VALIDATORS,
 		CONTROL_VALUE_ACCESSOR
 	],
+	styleUrls: [ './select.component.scss' ],
 	templateUrl: './select.component.html'
 })
 export class IeSelectComponent extends SelectControl implements ControlValueAccessor, OnChanges {
@@ -41,21 +42,14 @@ export class IeSelectComponent extends SelectControl implements ControlValueAcce
 	}
 
 	public edit(): void {
-		if( this._options.readonly )
-			return;
-
-		this._createSelectpicker();
-		this._isEditing = true;
-
-		if( !this._selectpicker.hasClass('open') )
-			this._selectpicker.selectpicker('toggle');
-	}
-
-	public ngOnChanges(changes: SimpleChanges): void {
-		super.ngOnChanges( changes );
-
-		if( this._options.readonly )
-			this._destroySelectpicker();
+		if( this._createSelectpicker() ) {
+			this._isEditing = true;
+			setTimeout(() => {
+				// Automatically focus input
+				if( !this._selectpicker.hasClass('open') )
+					this._selectpicker.selectpicker('toggle');
+			});
+		}
 	}
 
 	public save(): void {

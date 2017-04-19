@@ -12,15 +12,30 @@ import { ValuelistInterface } from '../../module/common';
 })
 export class AppComponent {
 
-	protected _valuelistItems: Observable<ValuelistInterface[]>;
+	private _valuelistItems: Observable<ValuelistInterface[]>;
 	private _formGroup: FormGroup;
+	private _values: any;
 
 	constructor(
 		formBuilder: FormBuilder
 	) {
-		this._formGroup = formBuilder.group({
-			date: '12/5/2017',
-			select: [ '4' ]
+		this._values = {
+			date: new Date(),
+			selectMulti: [ '4' ],
+			selectSingle: '6',
+			text: 'This text'
+		};
+
+		let controls: any = {};
+		for( let field in this._values )
+			controls[field] = [ this._values[field] ];
+
+		this._formGroup = formBuilder.group( controls );
+
+		this._formGroup.valueChanges.subscribe((value: any) => {
+			this._values.date = value.date;
+			this._values.selectMulti = value.selectMulti;
+			this._values.selectSingle = value.selectSingle;
 		});
 	}
 
