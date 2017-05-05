@@ -1,4 +1,6 @@
 var webpack = require('webpack');
+var webpackMerge = require('webpack-merge');
+
 var helpers = require('./helpers');
 var webpackLib = require('./webpack.lib');
 

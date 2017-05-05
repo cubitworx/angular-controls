@@ -14,7 +14,7 @@
 			"node_modules/@types"
 		],
 		"rootDir": "src",
-		"outDir": "dist/umd"
+		"outDir": "dist"
   },
 	"include": [
 		"src/*"
