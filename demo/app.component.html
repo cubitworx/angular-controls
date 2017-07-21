@@ -1,0 +1,61 @@
+<header>
+  <h1 class="project-name">@cubitworx/angular-controls</h1>
+  <h2 class="project-tagline">Enhanced form controls for Angular.</h2>
+
+  <a class="btn" href="https://github.com/cubitworx/angular-controls" target="_blank">View on GitHub</a>
+</header>
+
+<section class="demo">
+
+	<h3>Demo</h3>
+
+	<form [formGroup]="_formGroup">
+		<table>
+			<tr>
+				<th>Type</th>
+				<th>Standard control</th>
+				<th>Inline control</th>
+				<th>Input</th>
+				<th>Value</th>
+			</tr>
+
+			<!-- Multi select -->
+			<tr>
+				<td><label>Multi select</label></td>
+				<td><angular-control type="select" multiple="true" formControlName="selectMulti" [items]="_valuelistItems"></angular-control></td>
+				<td><angular-control type="ie-select" multiple="true" formControlName="selectMulti" [items]="_valuelistItems"></angular-control></td>
+				<td><input class="form-control" type="text" formControlName="selectMulti" /></td>
+				<td>{{_values.selectMulti}}</td>
+			</tr>
+
+			<!-- Single select -->
+			<tr>
+				<td><label>Single select</label></td>
+				<td><angular-control type="select" formControlName="selectSingle" [items]="_valuelistItems"></angular-control></td>
+				<td><angular-control type="ie-select" formControlName="selectSingle" [items]="_valuelistItems"></angular-control></td>
+				<td><input class="form-control" type="text" formControlName="selectSingle" /></td>
+				<td>{{_values.selectSingle}}</td>
+			</tr>
+
+			<!-- Date -->
+			<tr>
+				<td><label>Date</label></td>
+				<td><angular-control type="date" format="shortDate" formControlName="date"></angular-control></td>
+				<td><angular-control type="ie-date" formControlName="date"></angular-control></td>
+				<td><input class="form-control" type="text" formControlName="date" /></td>
+				<td>{{_values.date}}</td>
+			</tr>
+
+			<!-- Text -->
+			<tr>
+				<td><label>Text</label></td>
+				<td><input class="form-control" type="text" formControlName="text" /></td>
+				<td><angular-control type="ie-text" formControlName="text"></angular-control></td>
+				<td><input class="form-control" type="text" formControlName="text" /></td>
+				<td>{{_values.text}}</td>
+			</tr>
+
+		</table>
+	</form>
+
+</section>

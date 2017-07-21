@@ -1,9 +1,9 @@
-export * from './module/common';
+export { ValuelistInterface } from './common';
 
-export * from './module/standard/date.component';
-export * from './module/inline-edit/date.component';
-export * from './module/inline-edit/select.component';
-export * from './module/inline-edit/text.component';
-export * from './module/standard/select.component';
+export { IeDateComponent } from './inline-edit/date.component';
+export { IeSelectComponent } from './inline-edit/select.component';
+export { IeTextComponent } from './inline-edit/text.component';
+export { DateComponent } from './standard/date.component';
+export { SelectComponent } from './standard/select.component';
 
-export * from './module';
+export { ControlsModule } from './module';

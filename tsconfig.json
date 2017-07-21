@@ -1,18 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": [ "es2015", "dom" ],
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
+	"compilerOptions": {
+		"baseUrl": ".",
+		"experimentalDecorators": true,
+		"lib": [ "es2015", "dom" ],
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"noImplicitAny": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"stripInternal": true,
+		"target": "es5",
+		"emitDecoratorMetadata": true,
+		"suppressImplicitAnyIndexErrors": true,
 		"typeRoots": [
-			"node_modules/@types"
-		],
-		"rootDir": "src",
-		"outDir": "demo"
-  }
+			"./node_modules/@types"
+		]
+	},
+  "files": [
+      "./demo/main.ts",
+      "./demo/polyfills.ts"
+	]
 }

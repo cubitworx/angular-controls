@@ -1,0 +1,7 @@
+<!-- value / readonly -->
+<span class="angular-control-value" (click)="edit()" [hidden]="_isEditing">{{_strValue}}</span>
+
+<!-- input -->
+<div class="datetimepicker-wrapper">
+	<input #sfInput type="text" class="angular-control-input form-control" [hidden]="!_isEditing" (blur)="onBlur()" />
+</div>

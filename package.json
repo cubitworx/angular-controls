@@ -1,20 +1,22 @@
 {
-  "name": "angular-controls",
-  "version": "0.0.1",
+  "name": "@cubitworx/angular-controls",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "Enhanced form controls for Angular",
-  "main": "./dist",
-  "module": "./src",
-  "types": "./dist",
+  "main": "./dist/src",
+  "module": "./dist/src",
+  "typings": "./dist/src",
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig-dist.json",
-    "commit": "git-cz",
-    "htmlhint": "htmlhint ./src/**/*.html -c ./.htmlhintrc",
+    "clean": "rimraf ./dist",
+    "copy": "copyfiles ./LICENSE ./README.md ./package-dist.json ./dist && renamer --find package-dist.json --replace package.json ./dist/*",
+    "build": "npm run clean && ngc -p ./tsconfig-dist.json && npm run copy",
+    "htmlhint": "htmlhint ./src/**/*.html -c ./.htmlhintrc && htmlhint ./demo/**/*.html -c ./.htmlhintrc",
     "lint": "npm run tslint && npm run htmlhint",
     "prerelease": "npm run lint && npm run build && npm run test",
-    "start": "webpack-dev-server --inline --progress --port 8080",
+    "publish": "cd dist && npm publish",
+    "start": "webpack-dev-server --inline --progress --port 8080 --config=./config/webpack-demo.js",
     "test": "karma start",
-    "tslint": "tslint ./src/**/*.ts -t verbose"
+    "tslint": "tslint ./src/**/*.ts -t verbose && tslint ./demo/**/*.ts -t verbose"
   },
   "author": "Charles Louw <charles.louw@gmail.com>",
   "repository": {
@@ -22,40 +24,41 @@
     "url": "https://github.com/cubitworx/angular-controls.git"
   },
   "dependencies": {
-    "@angular/common": "^4.0.2",
-    "@angular/compiler": "^4.0.2",
     "@angular/core": "^4.0.2",
     "@angular/forms": "^4.0.2",
-    "@angular/platform-browser": "^4.0.2",
-    "@angular/platform-browser-dynamic": "^4.0.2",
-    "angular-i18n": "git://github.com/cubitworx/angular-i18n.git#master",
-    "bootstrap-sass": "^3.3.7",
-    "bootstrap-select": "^1.12.2",
-    "core-js": "^2.4.1",
-    "eonasdan-bootstrap-datetimepicker": "git://github.com/Eonasdan/bootstrap-datetimepicker.git#master",
-    "jquery": "^3.1.0",
-    "js-utility": "git://github.com/cubitworx/js-utility.git#master",
-    "lodash": "^4.17.4",
-    "rxjs": "^5.2.0",
-    "zone.js": "^0.8.5"
-  },
-  "devDependencies": {
+    "@cubitworx/angular-i18n": "^0.1.0",
     "@types/eonasdan-bootstrap-datetimepicker": "^4.17.22",
-    "@types/jasmine": "^2.5.47",
     "@types/jquery": "^2.0.39",
     "@types/lodash": "^4.14.62",
     "@types/node": "^7.0.12",
+    "bootstrap-sass": "^3.3.7",
+    "bootstrap-select": "^1.12.2",
+    "copyfiles": "^1.2.0",
+    "core-js": "^2.4.1",
+    "eonasdan-bootstrap-datetimepicker": "git://github.com/Eonasdan/bootstrap-datetimepicker.git#5a991bfff0b7a721c73d482d06bcbaf9f1e3fc98",
+    "jquery": "^3.1.0",
+    "lodash": "^4.17.4",
+    "reflect-metadata": "^0.1.10",
+    "renamer": "^0.6.1",
+    "rxjs": "^5.0.2",
+    "typescript": "^2.2.1",
+    "zone.js": "^0.8.5"
+  },
+  "devDependencies": {
+    "@angular/common": "^4.0.2",
+    "@angular/compiler": "^4.0.2",
+    "@angular/compiler-cli": "^4.0.2",
+    "@angular/platform-browser": "^4.0.2",
+    "@angular/platform-browser-dynamic": "^4.0.2",
+    "@types/jasmine": "^2.5.47",
     "@types/webpack": "^2.2.8",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.1.2",
-    "commitizen": "^2.8.1",
-    "cross-env": "^3.2.3",
     "css-loader": "^0.28.0",
-    "cz-conventional-changelog": "^2.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "html-loader": "^0.4.5",
-    "html-webpack-plugin": "^2.28.0",
+    "html-webpack-plugin": "^2.28.1",
     "img-loader": "^2.0.0",
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
@@ -73,17 +76,11 @@
     "style-loader": "^0.16.1",
     "to-string-loader": "^1.1.5",
     "tslint": "^5.0.0",
-    "typescript": "^2.2.1",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.1",
     "webpack-merge": "^4.1.0"
   },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    }
-  },
-  "dependencies-tmp": {
+  "dependencies-bak": {
     "eonasdan-bootstrap-datetimepicker": "Upgrade to v5 once it is released. Due to issue 1776 - https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1776"
   }
 }

@@ -1,0 +1,24 @@
+{
+	"name": "@cubitworx/angular-controls",
+	"version": "0.1.0",
+	"license": "MIT",
+	"description": "Enhanced form controls for Angular",
+	"module": "./src",
+	"typings": "./src",
+	"scripts": {},
+	"author": "Charles Louw <charles.louw@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cubitworx/angular-i18n.git"
+	},
+	"peerDependencies": {
+		"@angular/core": "^4.0.2",
+		"@angular/forms": "^4.0.2",
+		"@cubitworx/angular-i18n": "^0.1.0",
+		"bootstrap-sass": "^3.3.7",
+		"bootstrap-select": "^1.12.2",
+		"eonasdan-bootstrap-datetimepicker": "git://github.com/Eonasdan/bootstrap-datetimepicker.git#master",
+		"lodash": "^4.17.4",
+		"zone.js": "^0.8.5"
+	}
+}

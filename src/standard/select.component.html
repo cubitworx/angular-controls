@@ -1,0 +1,5 @@
+<!-- input -->
+<select #sfInput class="angular-control-input form-control" [hidden]="true">
+	<ng-content *ngIf="_itemCount"></ng-content>
+	<option *ngFor="let item of _items | async" [value]="item._key">{{item._value}}</option>
+</select>
