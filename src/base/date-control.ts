@@ -62,6 +62,9 @@ export class DateControl implements ControlValueAccessor, OnChanges, OnDestroy, 
 	}
 
 	public ngOnInit(): void {
+		this._i18nService.changes.subscribe((changes: SimpleChanges) => {
+			this._refresh();
+		});
 		this._refresh();
 	}
 
@@ -128,6 +131,13 @@ export class DateControl implements ControlValueAccessor, OnChanges, OnDestroy, 
 		}
 	}
 
-	protected _refresh(): void { }
+	protected _refresh(): void {
+		if (this._datetimepicker) {
+			this._datetimepicker.data('DateTimePicker').options({
+				format: this._i18nService.format(this._options.format),
+				locale: this._i18nService.locale
+			});
+		}
+	}
 
 }

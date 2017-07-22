@@ -9,13 +9,26 @@
 
 	<h3>Demo</h3>
 
+	<table class="options">
+		<tr>
+			<th>Locale</th>
+			<td>
+				<select class="form-control" (change)="changeLocale($event.target.value)">
+					<option value="de">German</option>
+					<option value="en-US">English (US)</option>
+					<option value="en-GB">English (GB)</option>
+					<option value="fr">French</option>
+				</select>
+			</td>
+		</tr>
+	</table>
+
 	<form [formGroup]="_formGroup">
 		<table>
 			<tr>
 				<th>Type</th>
-				<th>Standard control</th>
-				<th>Inline control</th>
-				<th>Input</th>
+				<th>Standard</th>
+				<th>Inline</th>
 				<th>Value</th>
 			</tr>
 
@@ -24,8 +37,7 @@
 				<td><label>Multi select</label></td>
 				<td><angular-control type="select" multiple="true" formControlName="selectMulti" [items]="_valuelistItems"></angular-control></td>
 				<td><angular-control type="ie-select" multiple="true" formControlName="selectMulti" [items]="_valuelistItems"></angular-control></td>
-				<td><input class="form-control" type="text" formControlName="selectMulti" /></td>
-				<td>{{_values.selectMulti}}</td>
+				<td>{{_formGroup.controls.selectMulti.value}}</td>
 			</tr>
 
 			<!-- Single select -->
@@ -33,8 +45,7 @@
 				<td><label>Single select</label></td>
 				<td><angular-control type="select" formControlName="selectSingle" [items]="_valuelistItems"></angular-control></td>
 				<td><angular-control type="ie-select" formControlName="selectSingle" [items]="_valuelistItems"></angular-control></td>
-				<td><input class="form-control" type="text" formControlName="selectSingle" /></td>
-				<td>{{_values.selectSingle}}</td>
+				<td>{{_formGroup.controls.selectSingle.value}}</td>
 			</tr>
 
 			<!-- Date -->
@@ -42,8 +53,7 @@
 				<td><label>Date</label></td>
 				<td><angular-control type="date" format="shortDate" formControlName="date"></angular-control></td>
 				<td><angular-control type="ie-date" formControlName="date"></angular-control></td>
-				<td><input class="form-control" type="text" formControlName="date" /></td>
-				<td>{{_values.date}}</td>
+				<td>{{_formGroup.controls.date.value}}</td>
 			</tr>
 
 			<!-- Text -->
@@ -51,8 +61,7 @@
 				<td><label>Text</label></td>
 				<td><input class="form-control" type="text" formControlName="text" /></td>
 				<td><angular-control type="ie-text" formControlName="text"></angular-control></td>
-				<td><input class="form-control" type="text" formControlName="text" /></td>
-				<td>{{_values.text}}</td>
+				<td>{{_formGroup.controls.text.value}}</td>
 			</tr>
 
 		</table>

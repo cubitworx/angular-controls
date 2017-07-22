@@ -44,6 +44,8 @@ export class DateComponent extends DateControl implements ControlValueAccessor {
 			this._destroyDatepicker();
 		else
 			this._createDatepicker();
+
+		super._refresh();
 	}
 
 }

@@ -26,7 +26,7 @@
   "dependencies": {
     "@angular/core": "^4.0.2",
     "@angular/forms": "^4.0.2",
-    "@cubitworx/angular-i18n": "^0.1.0",
+    "@cubitworx/angular-i18n": "^0.2.0",
     "@types/eonasdan-bootstrap-datetimepicker": "^4.17.22",
     "@types/jquery": "^2.0.39",
     "@types/lodash": "^4.14.62",

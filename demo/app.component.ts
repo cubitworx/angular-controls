@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { I18nService }  from '@cubitworx/angular-i18n';
 import { Observable } from 'rxjs';
 
 // Local
@@ -12,30 +13,33 @@ import { ValuelistInterface } from '../src';
 })
 export class AppComponent {
 
-	private _valuelistItems: Observable<ValuelistInterface[]>;
-	private _formGroup: FormGroup;
-	private _values: any;
+	protected _date: Date = new Date();
+	protected _formGroup: FormGroup;
+	protected _locale = 'de';
+	protected _valuelistItems: Observable<ValuelistInterface[]>;
 
 	constructor(
-		formBuilder: FormBuilder
+		protected _formBuilder: FormBuilder,
+		protected _i18nService: I18nService
 	) {
-		this._values = {
-			date: new Date(),
-			selectMulti: [ '4' ],
-			selectSingle: '6',
-			text: 'This text'
-		};
+		this._i18nService.setOptions({ locale: this._locale });
 
-		let controls: any = {};
-		for (let field in this._values)
-			controls[field] = [ this._values[field] ];
-
-		this._formGroup = formBuilder.group( controls );
+		this._formGroup = this._formBuilder.group({
+			date: [new Date()],
+			selectMulti: [[ '4' ]],
+			selectSingle: ['6'],
+			text: ['This text']
+		});
 
 		this._formGroup.valueChanges.subscribe((value: any) => {
-			for (let field in value)
-			this._values[field] = value[field];
+			this._formGroup.patchValue(value, {emitEvent: false});
 		});
+	}
+
+	public changeLocale(locale: string) {
+		this._locale = locale;
+		this._i18nService.setOptions({ locale: this._locale });
+		this._formGroup.controls.date.setValue( new Date() );
 	}
 
 	public ngOnInit(): void {

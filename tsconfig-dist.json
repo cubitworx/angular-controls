@@ -20,6 +20,7 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"stripInternal": true,
+		"suppressImplicitAnyIndexErrors": true,
 		"target": "es5"
 	},
 	"files": [

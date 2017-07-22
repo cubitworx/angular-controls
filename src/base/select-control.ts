@@ -33,11 +33,12 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 	public onChange: Function;
 	public onTouched: Function;
 
-	protected _debounce: number = 100;
+	protected _debounce: number = 200;
 	protected _displayValue: string = '';
 	protected _itemCount: number = 0;
 	protected _items: Observable<ValuelistInterface[]>;
 	protected _options: SelectControlOptions = Object.assign({}, OPTION_DEFAULTS);
+	protected _refreshSelectpickerDebounced: (Function & _.Cancelable) = _.debounce(() => this._refreshSelectpicker(), this._debounce);
 	protected _selectpicker: any;
 	protected _subscriptions: {
 		items?: Subscription
@@ -58,7 +59,8 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 
 		this._subscriptions.items = this._items.subscribe( (subItems: ValuelistInterface[]) => {
 			this._itemCount = subItems.length;
-			this._refresh();
+			this._refreshSelectpickerDebounced();
+			this._refreshDisplayValue();
 		});
 	}
 
@@ -75,7 +77,6 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 			}
 		}
 
-		console.log('ngOnChanges',this._options);
 		this._renderer.setElementProperty(this.sfInput.nativeElement, 'multiple', this._options.multiple);
 		this._renderer.setElementProperty(this.sfInput.nativeElement, 'readonly', this._options.readonly);
 
@@ -133,7 +134,6 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 	protected _createSelectpicker(refresh: boolean = true): boolean {
 		if (!this._selectpicker) {
 			this._selectpicker = $(this.sfInput.nativeElement);
-			console.log('_createSelectpicker',this._options);
 			this._selectpicker.selectpicker({
 				noneSelectedText: ''
 			});
@@ -164,7 +164,7 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 		this._refreshDisplayValue();
 	}
 
-	protected _refreshDisplayValue: () => void = _.debounce(() => {
+	protected _refreshDisplayValue(): void {
 		if (_.isEmpty(this._value)) {
 			this._displayValue = '';
 			return;
@@ -189,14 +189,13 @@ export class SelectControl implements ControlValueAccessor, OnChanges, OnDestroy
 				}
 			});
 		}
-	}, this._debounce);
+	}
 
-	protected _refreshSelectpicker: () => void = _.debounce(() => {
+	protected _refreshSelectpicker(): void {
 		if (this._selectpicker) {
-			console.log('_refreshSelectpicker',this._options,this._debounce);
 			this._selectpicker.selectpicker('refresh');
 			this._selectpicker.selectpicker('val', this._value);
 		}
-	}, this._debounce);
+	}
 
 }
