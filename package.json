@@ -1,6 +1,6 @@
 {
   "name": "@cubitworx/angular-controls",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "license": "MIT",
   "description": "Enhanced form controls for Angular",
   "main": "./dist/src",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@angular/core": "^4.0.2",
     "@angular/forms": "^4.0.2",
-    "@cubitworx/angular-i18n": "^0.2.0",
+    "@cubitworx/angular-i18n": "^0.3.0",
     "@types/eonasdan-bootstrap-datetimepicker": "^4.17.22",
     "@types/jquery": "^2.0.39",
     "@types/lodash": "^4.14.62",
@@ -35,7 +35,7 @@
     "bootstrap-select": "^1.12.2",
     "copyfiles": "^1.2.0",
     "core-js": "^2.4.1",
-    "eonasdan-bootstrap-datetimepicker": "git://github.com/Eonasdan/bootstrap-datetimepicker.git#5a991bfff0b7a721c73d482d06bcbaf9f1e3fc98",
+    "eonasdan-bootstrap-datetimepicker": "git://github.com/Eonasdan/bootstrap-datetimepicker.git#master",
     "jquery": "^3.1.0",
     "lodash": "^4.17.4",
     "reflect-metadata": "^0.1.10",
