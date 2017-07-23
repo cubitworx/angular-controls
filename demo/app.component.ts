@@ -13,7 +13,6 @@ import { ValuelistInterface } from '../src';
 })
 export class AppComponent {
 
-	protected _date: Date = new Date();
 	protected _formGroup: FormGroup;
 	protected _locale = 'de';
 	protected _valuelistItems: Observable<ValuelistInterface[]>;

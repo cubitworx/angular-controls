@@ -52,7 +52,15 @@
 			<tr>
 				<td><label>Date</label></td>
 				<td><angular-control type="date" format="shortDate" formControlName="date"></angular-control></td>
-				<td><angular-control type="ie-date" formControlName="date"></angular-control></td>
+				<td><angular-control type="ie-date" format="shortDate" formControlName="date"></angular-control></td>
+				<td>{{_formGroup.controls.date.value}}</td>
+			</tr>
+
+			<!-- DateTime -->
+			<tr>
+				<td><label>Date</label></td>
+				<td><angular-control type="date" format="shortDateTime" formControlName="date"></angular-control></td>
+				<td><angular-control type="ie-date" format="shortDateTime" formControlName="date"></angular-control></td>
 				<td>{{_formGroup.controls.date.value}}</td>
 			</tr>
 
