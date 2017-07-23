@@ -1,6 +1,6 @@
 {
   "name": "@cubitworx/angular-controls",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "description": "Enhanced form controls for Angular",
   "main": "./dist/src",
