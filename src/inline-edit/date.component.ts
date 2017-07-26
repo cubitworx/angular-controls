@@ -26,7 +26,10 @@ const CONTROL_VALUE_ACCESSOR = {
 		// CONTROL_VALIDATORS,
 		CONTROL_VALUE_ACCESSOR
 	],
-	styleUrls: [ './date.component.scss' ],
+	styleUrls: [
+		'../common.scss',
+		'./date.component.scss'
+	],
 	templateUrl: './date.component.html'
 })
 export class IeDateComponent extends DateControl implements ControlValueAccessor {

@@ -23,8 +23,11 @@ const CONTROL_VALUE_ACCESSOR = {
 		// CONTROL_VALIDATORS,
 		CONTROL_VALUE_ACCESSOR
 	],
-	templateUrl: './text.component.html',
-	styleUrls: ['./text.component.scss']
+	styleUrls: [
+		'../common.scss',
+		'./text.component.scss'
+	],
+	templateUrl: './text.component.html'
 })
 export class IeTextComponent implements ControlValueAccessor {
 

@@ -29,7 +29,7 @@ const CONTROL_VALUE_ACCESSOR = {
 		// CONTROL_VALIDATORS,
 		CONTROL_VALUE_ACCESSOR
 	],
-	styleUrls: [ './select.component.scss' ],
+	styleUrls: ['../common.scss'],
 	templateUrl: './select.component.html'
 })
 export class SelectComponent extends SelectControl implements ControlValueAccessor {

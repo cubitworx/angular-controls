@@ -12,7 +12,7 @@ import { ControlsModule } from '../src';
 		AppComponent
 	],
 	imports: [
-		ControlsModule,
+		ControlsModule.forRoot(),
 		BrowserModule,
 		FormsModule,
 		ReactiveFormsModule

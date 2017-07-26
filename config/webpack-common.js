@@ -36,6 +36,13 @@ webpackCommon.common = {
 				exclude: /index\.html$/
 			},
 
+			// common scss
+			{
+				test: /\.scss$/,
+				use: ['to-string-loader', 'css-loader', 'sass-loader'],
+				include: /common\.scss$/
+			},
+
 			// component scss
 			{
 				test: /\.scss$/,

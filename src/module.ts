@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { I18nModule } from '@cubitworx/angular-i18n';
+import { I18nModule, I18nService } from '@cubitworx/angular-i18n';
 
 // Local components
 import { DateComponent } from './standard/date.component';
@@ -29,8 +29,18 @@ import { IeTextComponent } from './inline-edit/text.component';
 	imports: [
 		CommonModule,
 		FormsModule,
-		I18nModule.forRoot()
+		I18nModule
 	]
 })
 export class ControlsModule {
+
+	public static forRoot(): ModuleWithProviders {
+		return {
+			ngModule: ControlsModule,
+			providers: [
+				I18nService
+			]
+		};
+	}
+
 }
